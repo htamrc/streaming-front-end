@@ -1,0 +1,164 @@
+/* Adventure Time-inspired visual */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap');
+
+:root {
+  /* variáveis de tema para reutilização e manutenção fácil */
+  --bg: #6f856d; /* verde oliva suave */
+  --surface: #eef3e6; /* base clara */
+  --highlight: #f182af; /* rosa vibrante */
+  --accent: #6a9ed6; /* azul acinzentado */
+  --text-dark: #1f2b32; /* texto escuro para modo claro */
+  --text-light: #f3f7ee; /* texto claro para modo escuro */
+  --muted: #5b5b5b; /* tom intermediário para subtítulos */
+  --radius: 999px; /* bordas arredondadas estilo redondo */
+}
+
+* {
+  box-sizing: border-box; /* inclui padding/borda no tamanho do elemento */
+}
+
+body {
+  margin: 0; /* remover margem padrão do navegador */
+  font-family: "Nunito", "Outfit", sans-serif; /* fonte principal Nunito */
+  background: radial-gradient(circle at 50% 35%, #6b8f81 0%, #3d6454 45%, #1d3530 100%); /* fundo gradiente inicial */
+  background-size: 200% 200%; /* necessário para animação suave */
+  animation: glowShift 20s infinite alternate; /* movimento lento de luz */
+  color: var(--text-light); /* texto claro em fundo escuro */
+  min-height: 100vh; /* garante área completa da viewport */
+  transition: background 0.6s ease, color 0.4s ease; /* transição de tema */
+}
+
+@keyframes glowShift {
+  0% { background-position: 50% 30%; }
+  50% { background-position: 50% 70%; }
+  100% { background-position: 50% 30%; }
+}
+
+body.light-mode {
+  background: radial-gradient(circle at 50% 35%, #bfd8eb 0%, #9bc4e5 45%, #7ba9d4 100%); /* tom mais escuro e suave */
+  color: var(--text-dark); /* cor do texto escuro para fundo claro */
+}
+
+body.dark-mode {
+  background: radial-gradient(circle at 50% 25%, #061127 0%, #0e1d3a 35%, #12254a 70%, #0f223f 100%);
+  background-blend-mode: multiply;
+  color: var(--text-light); /* cor do texto claro para fundo escuro */
+}
+
+body.light-mode h1,
+body.light-mode .profile p {
+  color: #1f2b32; /* garantia de texto escuro no modo claro */
+}
+
+body.dark-mode h1,
+body.dark-mode .profile p {
+  color: #f3f7ee; /* garantia no modo escuro */
+}
+
+main {
+  max-width: 980px; /* limite de largura para legibilidade */
+  margin: 0 auto; /* centra horizontalmente */
+  padding: 64px 16px 32px; /* espaçamento interno superior, lateral e inferior */
+  text-align: center; /* centraliza texto e conteúdo */
+}
+
+h1 {
+  margin: 42px 0 52px; /* espaço abaixo do título */
+  font-size: clamp(2.2rem, 6vw, 3.2rem); /* responsivo: cresce com a viewport */
+  letter-spacing: 0.03em; /* espaçamento entre letras */
+  text-transform: none; /* mantém caixa do texto original */
+  color: #ffc1d6; /* rosa clarinho */
+  font-family: "Nunito", "Outfit", sans-serif; /* Nunito no título */
+  font-weight: 600; /* não muito fina, mas não negrito extremo */
+}
+
+.profiles {
+  list-style: none; /* remove marcadores da lista */
+  margin: 0; /* remove margem padrão */
+  padding: 0; /* remove padding padrão */
+  display: flex; /* layout flex para manter itens juntos */
+  flex-wrap: wrap; /* permite quebra em linha */
+  justify-content: center; /* centraliza horizontalmente */
+  gap: 16px; /* distância bem pequena entre perfis */
+}
+
+.profile {
+  width: 120px; /* largura maior do slot */
+  background: transparent; /* nada por trás do item */
+  border: none; /* remove borda padrão */
+  border-radius: 50%; /* formatação circular */
+  padding: 0; /* sem espaçamento interno extra */
+  transition: transform 0.25s ease; /* anima transformação suave */
+  cursor: pointer; /* indica interatividade */
+}
+
+.profile img {
+  width: 100%; /* ocupa toda a largura do contêiner */
+  height: auto; /* mantém proporção da imagem */
+  border-radius: 25%; /* deixa a imagem circular */
+  display: block; /* evita espaçamento por linha-base */
+  border: 2px solid rgba(245, 238, 176, 0.9); /* borda amarelada suave */
+  margin-bottom: 8px; /* distância do nome */
+  object-fit: cover; /* cobre o contêiner sem distorcer */
+  transition: box-shadow 0.25s ease, transform 0.2s ease; /* anima sombra e escala */
+  box-shadow: 0 0 0 rgba(212, 32, 32, 0); /* sombra inicial transparente */
+}
+
+.profile:hover img,
+.profile:focus-within img {
+  transform: scale(1.06); /* leve zoom no hover */
+  box-shadow: 0 0 16px 12px rgba(243, 99, 157, 0.24), 0 10px 20px rgba(44, 131, 212, 0.18); /* sombra suave ao redor do círculo */
+}
+
+.profile p {
+  margin: 0; /* remove margin padrão do parágrafo */
+  font-size: 0.95rem; /* tamanho legível */
+  font-family: "Nunito", "Outfit", sans-serif; /* usa Nunito */
+  font-weight: 500; /* não muito fina, sem negrito */
+  color: inherit; /* herda cor do body (modo) */
+}
+
+body.light-mode .profile p {
+  color: #1f2b32; /* texto escuro em modo claro */
+}
+
+body.dark-mode .profile p {
+  color: #e6faf6; /* texto claro em modo escuro */
+}
+
+#themeToggle {
+  position: fixed;
+  right: 10px;
+  bottom: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px; /* remove estilo de círculo */
+  border: none;
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.22);
+  color: #2b3548;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 999;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#themeToggle:hover,
+#themeToggle:focus {
+  transform: scale(1.08);
+  background: rgba(255, 255, 255, 1);
+}
+
+@media (max-width: 600px) {
+  main {
+    padding: 48px 12px 24px; /* reduz padding em telas pequenas */
+  }
+
+  .profile {
+    width: 120px; /* reduz tamanho do perfil em telas pequenas */
+  }
+
+  .profile p {
+    font-size: 0.95rem; /* texto um pouco menor */
+  }
+}
